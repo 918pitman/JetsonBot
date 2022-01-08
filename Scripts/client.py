@@ -47,8 +47,8 @@ def client():
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     sock.settimeout(TIMEOUT)
-    try_connect(sock)
-    #threading.Thread(target=constantly_try_to_connect, args=(sock,)).start()
+    #try_connect(sock)
+    threading.Thread(target=constantly_try_to_connect, args=(sock,)).start()
 
     while True:
         try:
