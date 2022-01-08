@@ -2,7 +2,7 @@
 
 import socket
 
-HOST = '192.168.0.234'  # The server's hostname or IP address
+HOST = '143.198.161.181'  # The server's hostname or IP address
 PORT = 65432        # The port used by the server
 
 def client():
