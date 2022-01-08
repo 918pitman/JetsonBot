@@ -14,7 +14,6 @@ def client():
             if msgout == 'q':
                 break
             s.sendall(msgout.encode('utf-8'))
-            print('Sent :', msgout)
             #data = s.recv(1024)
             #print('Received', repr(data))
 
