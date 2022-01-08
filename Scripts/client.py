@@ -1,65 +1,22 @@
 #!/usr/bin/python3
 
-import sys
 import socket
-import time
-import threading
 
-SERVER_IP = '143.198.161.181'
-SERVER_PORT = 9001
-# We don't want to establish a connection with a static port. Let the OS pick a random empty one.
-#MY_AS_CLIENT_PORT = 8510
-
-TIMEOUT = 3
-BUFFER_SIZE = 4096
-
-def get_my_local_ip():
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    try:
-        # doesn't even have to be reachable
-        s.connect(('10.255.255.255', 1))
-        IP = s.getsockname()[0]
-    except Exception:
-        IP = '127.0.0.1'
-    finally:
-        s.close()
-    print(IP)
-    return bytes(IP, encoding='utf-8')
-
-def try_connect(sock):
-        try:
-            sock.connect((SERVER_IP, SERVER_PORT))
-        except ConnectionRefusedError:
-            print(f"Can't connect to the SERVER IP [{SERVER_IP}]:{SERVER_PORT} - does the server alive? Sleeping for a while...")
-            time.sleep(1)
-        except OSError:
-            #print("Already connected to the server. Kill current session to reconnect...")
-            pass
-
-def constantly_try_to_connect(sock):
-    while True:
-        try_connect(sock)
+HOST = '127.0.0.1'  # The server's hostname or IP address
+PORT = 65432        # The port used by the server
 
 def client():
-    sock = socket.socket()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))
 
-    # The following line won't work on Windows.
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-    sock.settimeout(TIMEOUT)
-    #try_connect(sock)
-    threading.Thread(target=constantly_try_to_connect, args=(sock,)).start()
-
-    while True:
-        try:
-            packet = sock.recv(BUFFER_SIZE)
-
-            if packet:
-                print(packet)
-                sock.sendall(get_my_local_ip())
-
-        except OSError:
-            pass
+        while True:
+            msgout = input('To Server: ')
+            if msgout == 'q':
+                break
+            s.sendall(msgout.encode('utf-8'))
+            print('Sent :', msgout)
+            #data = s.recv(1024)
+            #print('Received', repr(data))
 
 if __name__ == '__main__':
     client()
