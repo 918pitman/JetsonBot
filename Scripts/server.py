@@ -3,7 +3,7 @@
 from threading import Thread
 import socket
 
-HOST = '143.198.161.181'  # Standard loopback interface address (localhost)
+HOST = '0.0.0.0'  # Standard loopback interface address (localhost)
 PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
 
 def chat(conn, addr):
