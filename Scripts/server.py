@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-
-from threading import Thread
+import platform
 import socket
+from threading import Thread
 
-HOST = '0.0.0.0'  # Standard loopback interface address (localhost)
-PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
+HOST = '0.0.0.0'
+PORT = 65432
 
 def chat(conn, addr):
     with conn:
@@ -20,6 +20,7 @@ def chat(conn, addr):
 
 def server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        #s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.bind((HOST, PORT))
         s.listen()
         while True:

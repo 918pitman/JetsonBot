@@ -1,15 +1,20 @@
 #!/usr/bin/python3
 
+import platform
 import socket
 
-HOST = '143.198.161.181'  # The server's hostname or IP address
-PORT = 65432        # The port used by the server
+HOST = '143.198.161.181'
+PORT = 65432
 
 
 def client():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        #s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.connect((HOST, PORT))
-
+        priv_addr = s.getsockname()
+        print('Private Address is : ', priv_addr)
+        # if platform.system() == 'Linux':
+        #     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
         while True:
             msgout = input('To Server: ')
             if msgout == 'q':
