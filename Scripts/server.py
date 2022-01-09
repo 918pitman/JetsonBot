@@ -27,7 +27,7 @@ def ConnectPeers():
     
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         peers = []
-        #server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server.bind((HOST, PORT))
         server.listen()
         while len(peers) < 2:
