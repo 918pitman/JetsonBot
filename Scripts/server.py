@@ -41,9 +41,11 @@ def ConnectPeers():
                 print('Unknown client attempted to connect!')
                 conn.close()
         with peers[0].connection as conn:
-            conn.sendall(peers[1].address[0].encode('utf-8'))
-        with peers[1].connection:
-            conn.sendall(peers[0].address[0].encode('utf-8'))
+            msg = peers[1].address[0] + ':' + str(peers[1].address[1])
+            conn.sendall(msg.encode('utf-8'))
+        with peers[1].connection as conn:
+            msg = peers[0].address[0] + ':' + str(peers[0].address[1])
+            conn.sendall(msg.encode('utf-8'))
         
                     
 
