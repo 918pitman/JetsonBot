@@ -40,8 +40,8 @@ def ConnectPeers():
             else:
                 print('Unknown client attempted to connect!')
                 conn.close()
-        with peers[0].connection:
-            print('Would send')
+        with peers[0].connection as conn:
+            conn.sendall('hello'.encode('utf-8'))
         with peers[1].connection:
             print('Would send')
         
