@@ -18,9 +18,9 @@ def client():
         s.sendall('Peer'.encode('utf-8'))
         data = s.recv(1024)
         resp = data.decode('utf-8')
-        if resp == 'First':
+        if 'First' in resp:
             print('I connected to the server first!')
-        elif resp == 'Second':
+        elif 'Second' in resp:
             print('I connected to the server second!')
         else:
             print('Access Denied')
