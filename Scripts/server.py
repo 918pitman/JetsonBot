@@ -11,10 +11,11 @@ def chat(conn, addr):
         while True:
             data = conn.recv(1024)
             msgin = data.decode('utf-8')
-            print(addr,': ', msgin)
             if not data:
+                print('Session ended')
                 break
-
+            else:
+                print(addr,': ', msgin)
 
 
 def server():
@@ -22,9 +23,7 @@ def server():
         s.bind((HOST, PORT))
         s.listen()
         conn, addr = s.accept()
-        chat(conn, addr)
-            
-
+        Thread(target=chat, args=(conn,addr)).start()
 
 
 if __name__ == '__main__':
