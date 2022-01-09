@@ -2,7 +2,6 @@
 
 from threading import Thread
 import socket
-from typing_extensions import TypeGuard
 
 HOST = '143.198.161.181'  # Standard loopback interface address (localhost)
 PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
