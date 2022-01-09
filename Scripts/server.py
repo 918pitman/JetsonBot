@@ -27,7 +27,7 @@ def ConnectPeers():
     
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         peers = []
-        #s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        #server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server.bind((HOST, PORT))
         server.listen()
         while len(peers) < 2:
@@ -41,9 +41,9 @@ def ConnectPeers():
                 print('Unknown client attempted to connect!')
                 conn.close()
         with peers[0].connection as conn:
-            conn.sendall('hello'.encode('utf-8'))
+            conn.sendall(peers[1].address[0].encode('utf-8'))
         with peers[1].connection:
-            print('Would send')
+            conn.sendall(peers[0].address[1].encode('utf-8'))
         
                     
 
