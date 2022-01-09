@@ -8,11 +8,10 @@ PORT = 65432        # Port to listen on (non-privileged ports are > 1023)
 
 def chat(conn, addr):
     with conn:
-        print('Connected by', addr)
         while True:
             data = conn.recv(1024)
             msgin = data.decode('utf-8')
-            print('Received :', msgin)
+            print(addr,': ', msgin)
             if not data:
                 break
 
@@ -22,10 +21,8 @@ def server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((HOST, PORT))
         s.listen()
-
-        while True:
-            conn, addr = s.accept()
-            chat(conn, addr)
+        conn, addr = s.accept()
+        chat(conn, addr)
             
 
 
