@@ -3,8 +3,6 @@ import platform
 import socket
 from threading import Thread
 
-from client import client
-
 HOST = '0.0.0.0'
 PORT = 65432
 
@@ -26,13 +24,13 @@ def server():
         #s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.bind((HOST, PORT))
         s.listen()
-        while len(peers) <= 2:
+        while len(peers) < 2:
             conn, addr = s.accept()
             with conn:
                 peers.append(addr)
         print('Connected to two peers')
-        print('Peer 1: ', client[0])
-        print('Peer 2: ', client[1])
+        print('Peer 1: ', peers[0])
+        print('Peer 2: ', peers[1])
             
 
 
