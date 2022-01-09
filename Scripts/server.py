@@ -43,7 +43,7 @@ def ConnectPeers():
         with peers[0].connection as conn:
             conn.sendall(peers[1].address[0].encode('utf-8'))
         with peers[1].connection:
-            conn.sendall(peers[0].address[1].encode('utf-8'))
+            conn.sendall(peers[0].address[0].encode('utf-8'))
         
                     
 
