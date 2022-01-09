@@ -15,6 +15,7 @@ def client():
         print('Private Address is : ', priv_addr)
         # if platform.system() == 'Linux':
         #     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+        
         while True:
             msgout = input('To Server: ')
             if msgout == 'q':

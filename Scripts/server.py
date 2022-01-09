@@ -6,6 +6,12 @@ from threading import Thread
 HOST = '0.0.0.0'
 PORT = 65432
 
+
+class Peer:
+    def __init__(self, conn, addr):
+        self.connection = conn
+        self.address = addr
+
 def chat(conn, addr):
     with conn:
         while True:
@@ -17,22 +23,32 @@ def chat(conn, addr):
             else:
                 print(addr,': ', msgin)
 
-
-def server():
-    peers = []
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+def ConnectPeers():
+    
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
+        peers = []
         #s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        s.bind((HOST, PORT))
-        s.listen()
+        server.bind((HOST, PORT))
+        server.listen()
         while len(peers) < 2:
-            conn, addr = s.accept()
-            with conn:
-                peers.append(addr)
-        print('Connected to two peers')
-        print('Peer 1: ', peers[0])
-        print('Peer 2: ', peers[1])
+            conn, addr = server.accept()
+            data = conn.recv(1024)
+            msg = data.decode('utf-8')
+            if msg == 'Peer':
+                peers.append(Peer(conn, addr))
+                print('Connected with: ', addr)
+            else:
+                print('Unknown client attempted to connect!')
+                conn.close()
+        with peers[0].connection:
+            print('Would send')
+        with peers[1].connection:
+            print('Would send')
+        
+                    
+
             
 
 
 if __name__ == '__main__':
-    server()
+    ConnectPeers()
