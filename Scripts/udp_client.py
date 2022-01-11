@@ -4,7 +4,7 @@ import threading
 def listen(sock):
     while True:
         data = sock.recv(1024)
-        print('\rPeer: {}\n'.format(data.decode()), end='')
+        print('\rPeer: {}\nYou: '.format(data.decode()), end='')
 
 rendezvous = ('143.198.161.181', 55555)
 
