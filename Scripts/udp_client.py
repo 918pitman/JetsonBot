@@ -4,7 +4,7 @@ import threading
 def listen(sock):
     while True:
         data = sock.recv(1024)
-        print('\rPeer: {}\nYou: '.format(data.decode()), end='')
+        print('\rPeer: {}\nYou : '.format(data.decode()), end='')
 
 rendezvous = ('143.198.161.181', 55555)
 
@@ -45,5 +45,5 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind(('0.0.0.0', dport))
 
 while True:
-    msg = input('You: ')
+    msg = input('You : ')
     sock.sendto(msg.encode(), (ip, sport))
