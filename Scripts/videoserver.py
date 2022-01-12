@@ -37,4 +37,3 @@ while True:
 			except:
 				pass
 		cnt+=1
-    server_socket.close()
