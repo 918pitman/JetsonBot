@@ -38,4 +38,4 @@ while True:
             except:
                 pass
         cnt+=1
-        time.sleep(100)
+        time.sleep(0.1)
