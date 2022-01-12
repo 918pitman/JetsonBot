@@ -24,7 +24,7 @@ while True:
     WIDTH=400
     while(vid.isOpened()):
         _,frame = vid.read()
-        gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         print("Sent Frame")
         frame = imutils.resize(gray,width=WIDTH)
         encoded,buffer = cv2.imencode('.jpg',gray,[cv2.IMWRITE_JPEG_QUALITY,80])
