@@ -24,12 +24,13 @@ while True:
     WIDTH=400
     while(vid.isOpened()):
         _,frame = vid.read()
+        gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
         print("Sent Frame")
-        frame = imutils.resize(frame,width=WIDTH)
-        encoded,buffer = cv2.imencode('.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY,80])
+        frame = imutils.resize(gray,width=WIDTH)
+        encoded,buffer = cv2.imencode('.jpg',gray,[cv2.IMWRITE_JPEG_QUALITY,80])
         message = base64.b64encode(buffer)
         server_socket.sendto(message,client_addr)
-        frame = cv2.putText(frame,'FPS: '+str(fps),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
+        gray = cv2.putText(gray,'FPS: '+str(fps),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
         if cnt == frames_to_count:
             try:
                 fps = round(frames_to_count/(time.time()-st))
