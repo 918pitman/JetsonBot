@@ -15,7 +15,7 @@ socket_address = (host_ip,port)
 server_socket.bind(socket_address)
 print('Listening at:',socket_address)
 
-vid = cv2.VideoCapture(0) #  replace 'rocket.mp4' with 0 for webcam
+vid = cv2.VideoCapture('file_example_MP4_1280_10MG.mp4') #  replace 'rocket.mp4' with 0 for webcam
 fps,st,frames_to_count,cnt = (0,0,20,0)
 
 while True:
