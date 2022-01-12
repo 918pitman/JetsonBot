@@ -19,21 +19,22 @@ vid = cv2.VideoCapture('file_example_MP4_1280_10MG.mp4') #  replace 'rocket.mp4'
 fps,st,frames_to_count,cnt = (0,0,20,0)
 
 while True:
-	msg,client_addr = server_socket.recvfrom(BUFF_SIZE)
-	print('GOT connection from ',client_addr)
-	WIDTH=400
-	while(vid.isOpened()):
-		_,frame = vid.read()
-		frame = imutils.resize(frame,width=WIDTH)
-		encoded,buffer = cv2.imencode('.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY,80])
-		message = base64.b64encode(buffer)
-		server_socket.sendto(message,client_addr)
-		frame = cv2.putText(frame,'FPS: '+str(fps),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
-		if cnt == frames_to_count:
-			try:
-				fps = round(frames_to_count/(time.time()-st))
-				st=time.time()
-				cnt=0
-			except:
-				pass
-		cnt+=1
+    msg,client_addr = server_socket.recvfrom(BUFF_SIZE)
+    print('GOT connection from ',client_addr)
+    WIDTH=400
+    while(vid.isOpened()):
+        _,frame = vid.read()
+        print("Sent Frame")
+        frame = imutils.resize(frame,width=WIDTH)
+        encoded,buffer = cv2.imencode('.jpg',frame,[cv2.IMWRITE_JPEG_QUALITY,80])
+        message = base64.b64encode(buffer)
+        server_socket.sendto(message,client_addr)
+        frame = cv2.putText(frame,'FPS: '+str(fps),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
+        if cnt == frames_to_count:
+            try:
+                fps = round(frames_to_count/(time.time()-st))
+                st=time.time()
+                cnt=0
+            except:
+                pass
+        cnt+=1
