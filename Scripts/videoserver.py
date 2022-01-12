@@ -29,10 +29,6 @@ while True:
 		message = base64.b64encode(buffer)
 		server_socket.sendto(message,client_addr)
 		frame = cv2.putText(frame,'FPS: '+str(fps),(10,40),cv2.FONT_HERSHEY_SIMPLEX,0.7,(0,0,255),2)
-		key = cv2.waitKey(100) & 0xFF
-		if key == ord('q'):
-			server_socket.close()
-			break
 		if cnt == frames_to_count:
 			try:
 				fps = round(frames_to_count/(time.time()-st))
@@ -41,3 +37,4 @@ while True:
 			except:
 				pass
 		cnt+=1
+    server_socket.close()
